@@ -48,3 +48,15 @@ function requireLogin(): void
         exit;
     }
 }
+
+// Guarda una cookie con las opciones que pide el enunciado.
+// Para borrarla se llama con una caducidad en el pasado.
+function guardarCookie(string $nombre, string $valor, int $caducidad): void
+{
+    setcookie($nombre, $valor, [
+        'expires'  => $caducidad,  // momento en que caduca (timestamp)
+        'path'     => '/',         // vale para toda la web
+        'httponly' => true,        // JavaScript no puede leerla
+        'samesite' => 'Lax',       // no se envía en POST que vienen de otras webs
+    ]);
+}

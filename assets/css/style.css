@@ -1,17 +1,31 @@
 /* =========================================================
    AthleteLog · tema "Neon Track"
-   Fondo oscuro, líneas finas y un color de acento por zona.
+   Dos temas (oscuro y claro) con las mismas variables:
+   el resto del CSS solo usa var(--...), así cambiar de tema
+   es cambiar la clase del <body>.
    ========================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
-/* Paleta en variables: cambiar un color se hace en un solo sitio */
 :root {
+    --fuente:      'Space Grotesk', system-ui, sans-serif;
+    --fuente-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --radio:       10px;
+}
+
+/* ---------- Tema oscuro ---------- */
+.theme-dark {
     --fondo:        #07080f;
-    --panel:        rgba(255, 255, 255, 0.03);
-    --borde:        rgba(255, 255, 255, 0.08);
     --texto:        #e6e8f2;
     --texto-suave:  #8a8fa8;
+    --borde:        rgba(255, 255, 255, 0.08);
+    --superficie:   rgba(255, 255, 255, 0.03);
+    --superficie-2: rgba(255, 255, 255, 0.06);
+    --cabecera:     rgba(7, 8, 15, 0.75);
+    --rejilla:      rgba(255, 255, 255, 0.025);
+    --halo-1:       rgba(34, 211, 238, 0.12);
+    --halo-2:       rgba(244, 114, 182, 0.10);
+    --texto-boton:  #07080f;
 
     --cian:    #22d3ee;
     --magenta: #f472b6;
@@ -19,10 +33,29 @@
     --violeta: #a78bfa;
     --ambar:   #fbbf24;
     --rojo:    #fb7185;
+}
 
-    --fuente:       'Space Grotesk', system-ui, sans-serif;
-    --fuente-mono:  'JetBrains Mono', ui-monospace, monospace;
-    --radio:        10px;
+/* ---------- Tema claro ---------- */
+/* Mismos nombres, colores más oscuros para que se lean sobre fondo blanco */
+.theme-light {
+    --fondo:        #f4f6fb;
+    --texto:        #141726;
+    --texto-suave:  #5b6178;
+    --borde:        rgba(20, 23, 38, 0.12);
+    --superficie:   #ffffff;
+    --superficie-2: rgba(20, 23, 38, 0.04);
+    --cabecera:     rgba(255, 255, 255, 0.8);
+    --rejilla:      rgba(20, 23, 38, 0.04);
+    --halo-1:       rgba(8, 145, 178, 0.10);
+    --halo-2:       rgba(219, 39, 119, 0.08);
+    --texto-boton:  #ffffff;
+
+    --cian:    #0891b2;
+    --magenta: #db2777;
+    --lima:    #4d7c0f;
+    --violeta: #7c3aed;
+    --ambar:   #b45309;
+    --rojo:    #e11d48;
 }
 
 * {
@@ -40,12 +73,16 @@ body {
     background-color: var(--fondo);
     /* Rejilla sutil + dos halos de color: da profundidad sin recargar */
     background-image:
-        radial-gradient(circle at 15% 0%, rgba(34, 211, 238, 0.12), transparent 40%),
-        radial-gradient(circle at 85% 100%, rgba(244, 114, 182, 0.10), transparent 40%),
-        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        radial-gradient(circle at 15% 0%, var(--halo-1), transparent 40%),
+        radial-gradient(circle at 85% 100%, var(--halo-2), transparent 40%),
+        linear-gradient(var(--rejilla) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rejilla) 1px, transparent 1px);
     background-size: auto, auto, 40px 40px, 40px 40px;
     background-attachment: fixed;
+}
+
+a {
+    color: var(--cian);
 }
 
 /* ---------- Cabecera y navegación ---------- */
@@ -60,7 +97,7 @@ body {
     flex-wrap: wrap;
     gap: 1rem;
     padding: 0.8rem 2rem;
-    background: rgba(7, 8, 15, 0.75);
+    background: var(--cabecera);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--borde);
 }
@@ -84,7 +121,25 @@ body {
     padding: 0;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 0.25rem;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* "Hola, Nombre" del usuario conectado */
+.saludo {
+    margin-right: 0.75rem;
+    padding: 0.3rem 0.8rem;
+    font-family: var(--fuente-mono);
+    font-size: 0.8rem;
+    color: var(--lima);
+    border: 1px solid var(--lima);
+    border-radius: 999px;
 }
 
 .site-header a {
@@ -133,7 +188,7 @@ body {
 main {
     flex: 1;
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 3rem 2rem;
 }
@@ -188,12 +243,12 @@ pre {
     font-family: var(--fuente-mono);
     font-size: 0.8rem;
     color: var(--lima);
-    background: var(--panel);
+    background: var(--superficie);
     border: 1px solid var(--borde);
     border-radius: var(--radio);
 }
 
-/* ---------- Tablas de deportes ---------- */
+/* ---------- Tablas ---------- */
 
 .tabla-deportes {
     --acento: var(--cian);
@@ -201,7 +256,7 @@ pre {
     border-collapse: separate;
     border-spacing: 0;
     margin-bottom: 1rem;
-    background: var(--panel);
+    background: var(--superficie);
     border: 1px solid var(--borde);
     border-radius: var(--radio);
     overflow: hidden;
@@ -216,6 +271,7 @@ pre {
 .tabla-deportes td {
     padding: 0.8rem 1.2rem;
     text-align: left;
+    vertical-align: top;
 }
 
 .tabla-deportes th {
@@ -241,7 +297,7 @@ pre {
 }
 
 .tabla-deportes tbody tr:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--superficie-2);
 }
 
 /* La unidad se muestra como una etiqueta tipo código */
@@ -255,12 +311,13 @@ pre {
 
 .formulario {
     padding: 2rem;
-    background: var(--panel);
+    background: var(--superficie);
     border: 1px solid var(--borde);
     border-radius: var(--radio);
 }
 
-.formulario > p {
+.formulario > p,
+.formulario > div {
     margin: 0 0 1.4rem;
 }
 
@@ -276,7 +333,9 @@ pre {
 .formulario input[type="email"],
 .formulario input[type="password"],
 .formulario input[type="number"],
-.formulario select {
+.formulario input[type="date"],
+.formulario select,
+.formulario textarea {
     display: block;
     width: 100%;
     max-width: 420px;
@@ -285,22 +344,31 @@ pre {
     font-family: var(--fuente);
     font-size: 1rem;
     color: var(--texto);
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--superficie-2);
     border: 1px solid var(--borde);
     border-radius: 8px;
     outline: none;
+    color-scheme: light dark;
     transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formulario textarea {
+    max-width: 100%;
+    min-height: 90px;
+    resize: vertical;
 }
 
 .formulario select option {
     background: var(--fondo);
+    color: var(--texto);
 }
 
 /* Al escribir, el campo se ilumina */
 .formulario input:focus,
-.formulario select:focus {
+.formulario select:focus,
+.formulario textarea:focus {
     border-color: var(--cian);
-    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15);
+    box-shadow: 0 0 0 3px var(--halo-1);
 }
 
 .formulario fieldset {
@@ -311,7 +379,7 @@ pre {
     border-radius: 8px;
 }
 
-/* El segundo fieldset (días) usa otro color */
+/* El segundo fieldset de cada formulario usa otro color */
 .formulario fieldset:nth-of-type(2) {
     --acento: var(--lima);
 }
@@ -350,25 +418,37 @@ pre {
     cursor: pointer;
 }
 
+.botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
 .formulario button {
-    margin-top: 0.5rem;
     padding: 0.8rem 2rem;
     font-family: var(--fuente-mono);
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--fondo);
+    color: var(--texto-boton);
     background: linear-gradient(90deg, var(--cian), var(--violeta));
-    border: none;
+    border: 1px solid transparent;
     border-radius: 8px;
     cursor: pointer;
     transition: box-shadow 0.2s, transform 0.2s;
 }
 
 .formulario button:hover {
-    box-shadow: 0 0 24px rgba(34, 211, 238, 0.45);
+    box-shadow: 0 0 24px var(--halo-1);
     transform: translateY(-1px);
+}
+
+/* Botón secundario (restablecer): solo el borde */
+.formulario .boton-secundario {
+    color: var(--rojo);
+    background: transparent;
+    border-color: var(--rojo);
 }
 
 /* ---------- Mensajes ---------- */
@@ -377,9 +457,9 @@ pre {
     margin: 0 0 1.5rem;
     padding: 1rem 1.2rem 1rem 2.4rem;
     color: var(--rojo);
-    background: rgba(251, 113, 133, 0.08);
-    border: 1px solid rgba(251, 113, 133, 0.35);
-    border-left: 3px solid var(--rojo);
+    background: var(--superficie);
+    border: 1px solid var(--rojo);
+    border-left-width: 4px;
     border-radius: 8px;
 }
 
@@ -387,12 +467,23 @@ pre {
     margin: 0.2rem 0;
 }
 
+.exito,
+.aviso {
+    background: var(--superficie);
+    border: 1px solid var(--lima);
+    border-left-width: 4px;
+    border-radius: var(--radio);
+}
+
 .exito {
     padding: 1.5rem 2rem;
-    background: rgba(163, 230, 53, 0.06);
-    border: 1px solid rgba(163, 230, 53, 0.3);
-    border-left: 3px solid var(--lima);
-    border-radius: var(--radio);
+}
+
+.aviso {
+    max-width: none;
+    margin: 0 0 1.5rem;
+    padding: 0.8rem 1.2rem;
+    color: var(--lima);
 }
 
 .exito h1 {
@@ -424,4 +515,9 @@ pre {
     font-size: 0.75rem;
     letter-spacing: 0.1em;
     color: var(--texto-suave);
+}
+
+.site-footer .visitas {
+    margin-top: 0.3rem;
+    color: var(--cian);
 }

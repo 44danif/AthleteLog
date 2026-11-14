@@ -80,3 +80,12 @@ $diasSemana = [
     'sabado'    => 'Sábado',
     'domingo'   => 'Domingo',
 ];
+$themes = [
+    'light' => 'Claro',
+    'dark'  => 'Oscuro',
+];
+
+$weightUnits = [
+    'kg' => 'Kilogramos (kg)',
+    'lb' => 'Libras (lb)',
+];
