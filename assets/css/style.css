@@ -1,0 +1,427 @@
+/* =========================================================
+   AthleteLog · tema "Neon Track"
+   Fondo oscuro, líneas finas y un color de acento por zona.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* Paleta en variables: cambiar un color se hace en un solo sitio */
+:root {
+    --fondo:        #07080f;
+    --panel:        rgba(255, 255, 255, 0.03);
+    --borde:        rgba(255, 255, 255, 0.08);
+    --texto:        #e6e8f2;
+    --texto-suave:  #8a8fa8;
+
+    --cian:    #22d3ee;
+    --magenta: #f472b6;
+    --lima:    #a3e635;
+    --violeta: #a78bfa;
+    --ambar:   #fbbf24;
+    --rojo:    #fb7185;
+
+    --fuente:       'Space Grotesk', system-ui, sans-serif;
+    --fuente-mono:  'JetBrains Mono', ui-monospace, monospace;
+    --radio:        10px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--fuente);
+    line-height: 1.6;
+    color: var(--texto);
+    background-color: var(--fondo);
+    /* Rejilla sutil + dos halos de color: da profundidad sin recargar */
+    background-image:
+        radial-gradient(circle at 15% 0%, rgba(34, 211, 238, 0.12), transparent 40%),
+        radial-gradient(circle at 85% 100%, rgba(244, 114, 182, 0.10), transparent 40%),
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: auto, auto, 40px 40px, 40px 40px;
+    background-attachment: fixed;
+}
+
+/* ---------- Cabecera y navegación ---------- */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0.8rem 2rem;
+    background: rgba(7, 8, 15, 0.75);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--borde);
+}
+
+.logo {
+    margin: 0;
+    font-family: var(--fuente-mono);
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, var(--cian), var(--violeta), var(--magenta));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.site-header ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.site-header a {
+    --acento: var(--cian);
+    position: relative;
+    display: block;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.9rem;
+    color: var(--texto-suave);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+/* Cada enlace del menú tiene su propio color de acento */
+.site-header li:nth-child(1) a { --acento: var(--cian); }
+.site-header li:nth-child(2) a { --acento: var(--magenta); }
+.site-header li:nth-child(3) a { --acento: var(--lima); }
+.site-header li:nth-child(4) a { --acento: var(--violeta); }
+.site-header li:nth-child(5) a { --acento: var(--ambar); }
+.site-header li:nth-child(6) a { --acento: var(--rojo); }
+
+/* Línea de neón que crece desde el centro al pasar el ratón */
+.site-header a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    bottom: 0.15rem;
+    height: 2px;
+    background: var(--acento);
+    box-shadow: 0 0 8px var(--acento);
+    transition: left 0.25s, right 0.25s;
+}
+
+.site-header a:hover {
+    color: var(--texto);
+}
+
+.site-header a:hover::after {
+    left: 0.85rem;
+    right: 0.85rem;
+}
+
+/* ---------- Contenido ---------- */
+
+main {
+    flex: 1;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+h1 {
+    margin: 0 0 1rem;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    background: linear-gradient(90deg, var(--texto) 30%, var(--cian));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+h2 {
+    margin: 2.5rem 0 1rem;
+    font-family: var(--fuente-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+}
+
+/* Pequeño indicador de color delante de cada subtítulo */
+h2::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 0.7rem;
+    border-radius: 50%;
+    background: var(--lima);
+    box-shadow: 0 0 10px var(--lima);
+    vertical-align: middle;
+}
+
+p {
+    color: var(--texto-suave);
+    max-width: 65ch;
+}
+
+strong {
+    color: var(--texto);
+}
+
+pre {
+    padding: 1rem;
+    overflow-x: auto;
+    font-family: var(--fuente-mono);
+    font-size: 0.8rem;
+    color: var(--lima);
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+}
+
+/* ---------- Tablas de deportes ---------- */
+
+.tabla-deportes {
+    --acento: var(--cian);
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 1rem;
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    overflow: hidden;
+}
+
+/* Individuales en cian, equipo en magenta */
+.tabla-deportes:nth-of-type(2) {
+    --acento: var(--magenta);
+}
+
+.tabla-deportes th,
+.tabla-deportes td {
+    padding: 0.8rem 1.2rem;
+    text-align: left;
+}
+
+.tabla-deportes th {
+    font-family: var(--fuente-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--acento);
+    border-bottom: 1px solid var(--acento);
+}
+
+.tabla-deportes td {
+    border-bottom: 1px solid var(--borde);
+}
+
+.tabla-deportes tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tabla-deportes tbody tr {
+    transition: background 0.2s;
+}
+
+.tabla-deportes tbody tr:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* La unidad se muestra como una etiqueta tipo código */
+.tabla-deportes td:last-child {
+    font-family: var(--fuente-mono);
+    font-size: 0.85rem;
+    color: var(--acento);
+}
+
+/* ---------- Formulario ---------- */
+
+.formulario {
+    padding: 2rem;
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+}
+
+.formulario > p {
+    margin: 0 0 1.4rem;
+}
+
+.formulario label {
+    font-family: var(--fuente-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+}
+
+.formulario input[type="text"],
+.formulario input[type="email"],
+.formulario input[type="password"],
+.formulario input[type="number"],
+.formulario select {
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    margin-top: 0.4rem;
+    padding: 0.7rem 0.9rem;
+    font-family: var(--fuente);
+    font-size: 1rem;
+    color: var(--texto);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formulario select option {
+    background: var(--fondo);
+}
+
+/* Al escribir, el campo se ilumina */
+.formulario input:focus,
+.formulario select:focus {
+    border-color: var(--cian);
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15);
+}
+
+.formulario fieldset {
+    --acento: var(--violeta);
+    margin: 0 0 1.4rem;
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+}
+
+/* El segundo fieldset (días) usa otro color */
+.formulario fieldset:nth-of-type(2) {
+    --acento: var(--lima);
+}
+
+.formulario legend {
+    padding: 0 0.5rem;
+    font-family: var(--fuente-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--acento);
+}
+
+.formulario fieldset p {
+    display: inline-flex;
+    align-items: center;
+    margin: 0.3rem 1.2rem 0.3rem 0;
+}
+
+.formulario fieldset label,
+.formulario input[type="checkbox"] + label {
+    font-family: var(--fuente);
+    font-size: 0.95rem;
+    letter-spacing: normal;
+    text-transform: none;
+    color: var(--texto);
+    cursor: pointer;
+}
+
+.formulario input[type="radio"],
+.formulario input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    margin: 0 0.5rem 0 0;
+    accent-color: var(--acento, var(--magenta));
+    cursor: pointer;
+}
+
+.formulario button {
+    margin-top: 0.5rem;
+    padding: 0.8rem 2rem;
+    font-family: var(--fuente-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fondo);
+    background: linear-gradient(90deg, var(--cian), var(--violeta));
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.formulario button:hover {
+    box-shadow: 0 0 24px rgba(34, 211, 238, 0.45);
+    transform: translateY(-1px);
+}
+
+/* ---------- Mensajes ---------- */
+
+.errores {
+    margin: 0 0 1.5rem;
+    padding: 1rem 1.2rem 1rem 2.4rem;
+    color: var(--rojo);
+    background: rgba(251, 113, 133, 0.08);
+    border: 1px solid rgba(251, 113, 133, 0.35);
+    border-left: 3px solid var(--rojo);
+    border-radius: 8px;
+}
+
+.errores li {
+    margin: 0.2rem 0;
+}
+
+.exito {
+    padding: 1.5rem 2rem;
+    background: rgba(163, 230, 53, 0.06);
+    border: 1px solid rgba(163, 230, 53, 0.3);
+    border-left: 3px solid var(--lima);
+    border-radius: var(--radio);
+}
+
+.exito h1 {
+    background: linear-gradient(90deg, var(--lima), var(--cian));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.exito ul {
+    padding-left: 1.2rem;
+    color: var(--texto-suave);
+}
+
+.exito li {
+    margin: 0.3rem 0;
+}
+
+/* ---------- Pie ---------- */
+
+.site-footer {
+    padding: 1.5rem;
+    text-align: center;
+    border-top: 1px solid var(--borde);
+}
+
+.site-footer p {
+    margin: 0 auto;
+    font-family: var(--fuente-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--texto-suave);
+}
