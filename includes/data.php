@@ -89,3 +89,19 @@ $weightUnits = [
     'kg' => 'Kilogramos (kg)',
     'lb' => 'Libras (lb)',
 ];
+
+// ----- Paso 6: datos de los entrenamientos -----
+
+const TRAINING_TYPES = [
+    'tecnica'      => 'Técnica',
+    'fuerza'       => 'Fuerza',
+    'resistencia'  => 'Resistencia',
+    'competicion'  => 'Competición',
+    'recuperacion' => 'Recuperación',
+];
+
+const DURACION_MIN    = 5;
+const DURACION_MAX    = 360;
+const RPE_MIN         = 1;
+const RPE_MAX         = 10;
+const SENSACIONES_MAX = 200;

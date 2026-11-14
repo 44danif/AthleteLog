@@ -521,3 +521,94 @@ pre {
     margin-top: 0.3rem;
     color: var(--cian);
 }
+
+/* =========================================================
+   Paso 6: entrenamientos
+   ========================================================= */
+
+/* Tabla de entrenamientos: mismo aspecto que las de deportes, en violeta */
+.tabla-entrenamientos {
+    --acento: var(--violeta);
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    overflow: hidden;
+}
+
+.tabla-entrenamientos th,
+.tabla-entrenamientos td {
+    padding: 0.7rem 0.8rem;
+    text-align: left;
+    vertical-align: top;
+}
+
+.tabla-entrenamientos th {
+    font-family: var(--fuente-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--acento);
+    border-bottom: 1px solid var(--acento);
+}
+
+.tabla-entrenamientos td {
+    border-bottom: 1px solid var(--borde);
+}
+
+.tabla-entrenamientos tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tabla-entrenamientos tbody tr:hover {
+    background: var(--superficie-2);
+}
+
+/* Tarjetas de estadísticas, una de cada color */
+.estadisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0 2rem;
+}
+
+.estadistica {
+    --acento: var(--cian);
+    padding: 1.2rem;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-top: 3px solid var(--acento);
+    border-radius: var(--radio);
+}
+
+.estadistica:nth-child(2) { --acento: var(--magenta); }
+.estadistica:nth-child(3) { --acento: var(--lima); }
+.estadistica:nth-child(4) { --acento: var(--ambar); }
+
+.estadistica-valor {
+    display: block;
+    font-family: var(--fuente-mono);
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--acento);
+}
+
+.estadistica-nombre {
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+}
+
+/* Campo condicional de lesión: la descripción solo se ve con la casilla marcada */
+.campo-lesion .lesion-detalle {
+    margin: 0.8rem 0 0;
+}
+
+.campo-lesion:has(#lesion:not(:checked)) .lesion-detalle {
+    display: none;
+}

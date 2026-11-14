@@ -35,3 +35,31 @@ function renderMnsBienv():string{
         </p>
     HTML;
 }
+
+// Tabla con los entrenamientos guardados en la sesión.
+function renderTrainingTable(array $trainings): string
+{
+    $html = '<table class="tabla-entrenamientos">'
+        . '<thead><tr>'
+        . '<th>#</th><th>Fecha</th><th>Tipo</th><th>Minutos</th><th>RPE</th>'
+        . '<th>Carga</th><th>Sensaciones</th><th>Lesión / molestia</th>'
+        . '</tr></thead><tbody>';
+
+    foreach ($trainings as $numero => $entrenamiento) {
+        // La fecha se guarda como AAAA-MM-DD y se muestra como DD/MM/AAAA.
+        $fecha = DateTimeImmutable::createFromFormat('!Y-m-d', $entrenamiento['date']);
+
+        $html .= '<tr>'
+            . '<td>' . e($numero + 1) . '</td>'
+            . '<td>' . e($fecha ? $fecha->format('d/m/Y') : $entrenamiento['date']) . '</td>'
+            . '<td>' . e(TRAINING_TYPES[$entrenamiento['type']]) . '</td>'
+            . '<td>' . e($entrenamiento['duration']) . '</td>'
+            . '<td>' . e($entrenamiento['rpe']) . '</td>'
+            . '<td>' . e(calculateLoad($entrenamiento['duration'], $entrenamiento['rpe'])) . '</td>'
+            . '<td>' . e($entrenamiento['notes'] !== '' ? $entrenamiento['notes'] : '—') . '</td>'
+            . '<td>' . e($entrenamiento['injury'] !== '' ? $entrenamiento['injury'] : 'No') . '</td>'
+            . '</tr>';
+    }
+
+    return $html . '</tbody></table>';
+}
